@@ -1,6 +1,7 @@
 package hz.spring.breweryclient.web.client;
 
 import hz.spring.breweryclient.web.model.BeerDTO;
+import hz.spring.breweryclient.web.model.CustomerDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,5 +40,30 @@ class BreweryClientTest {
     @Test
     void deleteBeer() {
         breweryClient.deleteBeer(UUID.randomUUID());
+    }
+
+    @Test
+    void getCustomerById() {
+        CustomerDTO customerDTO = breweryClient.getCustomerById(UUID.randomUUID());
+        assertNotNull(customerDTO);
+    }
+
+    @Test
+    void saveNewCustomer() {
+        CustomerDTO customerDTO = CustomerDTO.builder().name("New Customer").build();
+        URI uri = breweryClient.saveNewCustomer(customerDTO);
+        assertNotNull(uri);
+        System.out.println(uri);
+    }
+
+    @Test
+    void updateCustomer() {
+        CustomerDTO customerDTO = CustomerDTO.builder().name("New Customer").build();
+        breweryClient.updateCustomer(UUID.randomUUID(), customerDTO);
+    }
+
+    @Test
+    void deleteCustomer() {
+        breweryClient.deleteCustomer(UUID.randomUUID());
     }
 }
